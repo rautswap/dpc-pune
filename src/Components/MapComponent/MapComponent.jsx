@@ -8,10 +8,8 @@ import LayerLegend from '../CommonComponent/layerLegend/LayerLegend'
 import LayerList from '../CommonComponent/layerList/LayerList'
 import Measurement from '../CommonComponent/measurement/Measurement'
 import SidePanel from '../SelectPanel/SidePanel'
-// import SearchLayerWidget from '../CommonComponent/SearchLayerWidget'
 export default function MapComponent() {
     const [mapExpands, setMapExpands] = useState([]);
-    const [searchSource, setSearchSource] = useState();
     useEffect(() => {
         if (!mapExpands) return;
         const onMapExpandOpen = (newVal, oldVal, propName, expand) => {
@@ -39,13 +37,13 @@ export default function MapComponent() {
     return (
         <MapViewContextPrvider>
             <LogoComponent />
-            <SearchLayerWidget addMapExpand={addMapExpand} searchSource={searchSource} setSearchSource={setSearchSource} />
+            <AdministratorLayer />
+            <SearchLayerWidget addMapExpand={addMapExpand} />
             <LayerList addMapExpand={addMapExpand} />
             <BasemapGallary addMapExpand={addMapExpand} />
-            <AdministratorLayer searchSource={searchSource} setSearchSource={setSearchSource} />
             <LayerLegend addMapExpand={addMapExpand} />
             <Measurement addMapExpand={addMapExpand}/>
-            <SidePanel/>
+            <SidePanel addMapExpand={addMapExpand}/>
         </MapViewContextPrvider>
     )
 }

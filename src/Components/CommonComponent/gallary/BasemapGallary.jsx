@@ -16,20 +16,20 @@ function BasemapGallary({ addMapExpand }) {
         if (view) {
             const lulcBaseMap = new WMSLayer({
                 url: geoserver_wfs_ows,
-                sublayers: [    
+                sublayers: [
                     {
                         name: 'lulc:MH_LULC50K_1516',
                     }]
-                });
-                const bhuvanLulcBasemap = new Basemap({
-                    title:"LULC",
-                     id: "lulc",
-                     baseLayers:[lulcBaseMap]
-                  })
+            });
+            const bhuvanLulcBasemap = new Basemap({
+                title: "LULC",
+                id: "lulc",
+                baseLayers: [lulcBaseMap]
+            })
             setBasemapGallery(new EsriBasemapGallery({
                 view: view,
                 container: document.createElement("div"),
-                source: [Basemap.fromId("topo-vector"), bhuvanLulcBasemap,Basemap.fromId("hybrid"), Basemap.fromId("dark-gray"), Basemap.fromId("gray"), Basemap.fromId("streets-vector"), Basemap.fromId("streets-night-vector"), Basemap.fromId("streets-navigation-vector"), Basemap.fromId("satellite"), Basemap.fromId("terrain"), Basemap.fromId("oceans")] // autocasts to LocalBasemapsSource
+                source: [Basemap.fromId("topo-vector"), bhuvanLulcBasemap, Basemap.fromId("hybrid"), Basemap.fromId("dark-gray"), Basemap.fromId("gray"), Basemap.fromId("streets-vector"), Basemap.fromId("streets-night-vector"), Basemap.fromId("streets-navigation-vector"), Basemap.fromId("satellite"), Basemap.fromId("terrain"), Basemap.fromId("oceans")] // autocasts to LocalBasemapsSource
             }));
         }
     }, [view])

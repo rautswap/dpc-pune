@@ -4,6 +4,9 @@ import Expand from '@arcgis/core/widgets/Expand';
 import SearchLayer from './searchSource';
 import { MapViewContext } from '../../MapComponent/MapContext';
 import GeoJSONLayer from "@arcgis/core/layers/GeoJSONLayer";
+import SimpleMarkerSymbol from "@arcgis/core/symbols/SimpleMarkerSymbol";
+import { popupUtils } from '../popupUtils';
+import * as reactiveUtils from "@arcgis/core/core/reactiveUtils";
 function SearchLayerWidget({ addMapExpand }) {
   const { view } = useContext(MapViewContext)
   const [searchWidget, setSearchWidget] = useState();
@@ -26,6 +29,7 @@ function SearchLayerWidget({ addMapExpand }) {
         allPlaceholder: 'Search for Locations',
       }));
     }
+
   }, [view])
   useEffect(() => {
     if (view) {
@@ -34,6 +38,7 @@ function SearchLayerWidget({ addMapExpand }) {
         const expand = new Expand({
           view: view,
           content: searchWidget,
+          expanded: true,
           expandTooltip: 'Search Widget',
           collapseTooltip: 'Collapse Search',
           id: widgetId,
@@ -54,6 +59,38 @@ function SearchLayerWidget({ addMapExpand }) {
       });
     }
   }, [addMapExpand, searchExpand, view]);
+  useEffect(() => {
+    var marker = new SimpleMarkerSymbol({
+      style: 'circle',
+      color: 'red',
+      size: 10, // pixels
+      outline: {
+        // autocasts as esri/symbols/SimpleLineSymbol
+        color: 'Black',
+        width: 1,
+      },
+    });
+    if (searchWidget) {
+      reactiveUtils.watch(
+        () => view.popup.visible,
+        (visible) => {
+          if (!visible) searchWidget.clear();
+        }
+      );
+      searchWidget.on('search-complete', function (event) {
+        if (event) {
+          if (event.searchTerm) {
+            searchWidget.popupTemplate = popupUtils.popUpTemplates;
+            searchWidget.popupTemplate.title=event.searchTerm;
+            event.results[0].source.resultSymbol = marker;
+            view.zoom = 13;
+          }
+        }
+      });
+    }
+
+  }, [searchWidget,view])
+
   return (<></>
   )
 }

@@ -18,13 +18,13 @@ function Measurement({ addMapExpand }) {
                     view: view,
                     content: document.getElementById('measureBar'),
                     expanded: false,
-                    expandIconClass: 'esri-icon-measure',
+                    expandIcon: 'measure',
+                    collapseIcon:'measure-line',
                     expandTooltip: 'Measurement Tool',
                     id: widgetId,
                 });
                 setDistanceMeasureExpand(distanceMeasureExpandWidget);
 
-                view.ui.add('measureBar', 'top-left');
                 document
                     .getElementById('distanceButton')
                     .addEventListener('click', function () {

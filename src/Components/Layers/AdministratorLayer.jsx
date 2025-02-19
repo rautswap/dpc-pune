@@ -7,11 +7,9 @@ import { popupUtils } from "../CommonComponent/popupUtils";
 import { REACT_APP_GEOSERVER_URI_WMS } from "../CommonComponent/utils";
 // import * as reactiveUtils from "@arcgis/core/core/reactiveUtils";
 
-const geoserver_wfs_ows =REACT_APP_GEOSERVER_URI_WMS;
+const geoserver_wfs_ows = REACT_APP_GEOSERVER_URI_WMS;
 function AdministratorLayer({ setSearchSource }) {
     const { view } = useContext(MapViewContext);
-
-
     useEffect(() => {
         if (view) {
             const adminLayer = new WMSLayer({
@@ -23,31 +21,25 @@ function AdministratorLayer({ setSearchSource }) {
                 fetchFeatureInfoFunction: async (query) => {
                     query.info_format = "application/json";
                     const { data } = await esriRequest(adminLayer.featureInfoUrl, { query });
-                    // console.log(data)
                     // Convert each GeoJSON feature into an Esri graphic.
                     return data.features.map(
                         (feature) =>
                             new Graphic({
-                                attributes: feature.properties,
+                                attributes: {...feature.properties,id: ((feature.id).split(".")[0]).replace(/_/g, ' ').toUpperCase()},
                                 outFields: ['*'],
-                                popupTemplate: popupUtils.districtPoupTemplates
+                                popupTemplate: popupUtils.popUpTemplates
                             })
                     );
                 },
                 sublayers: [
                     {
-
                         name: 'transportation',
                         title: 'Transportation',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:transportation&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450",
-                        outFields: ['*'],
-                        placeholder: 'Search for Transportation',
-                        maxResults: 10,
-                        localSearchDisabled: false,
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:transportation&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450",
                     },
                     {
                         name: 'school_location',
@@ -56,7 +48,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:school_location&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:school_location&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'govt_admin_depart',
@@ -65,7 +57,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:govt_admin_depart&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:govt_admin_depart&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Fort',
@@ -74,7 +66,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Fort&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Fort&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Settlement_Point',
@@ -83,7 +75,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Settlement_Point&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Settlement_Point&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Monument_Location',
@@ -92,7 +84,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Monument_Location&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Monument_Location&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'police_station',
@@ -101,7 +93,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:police_station&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:police_station&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Veterinary_Hospital',
@@ -110,7 +102,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Veterinary_Hospital&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Veterinary_Hospital&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Hospital_Location',
@@ -119,7 +111,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Hospital_Location&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Hospital_Location&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'road_black_spot',
@@ -128,7 +120,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:road_black_spot&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:road_black_spot&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Rail_Track',
@@ -137,7 +129,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Rail_Track&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Rail_Track&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Road',
@@ -146,7 +138,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: false,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Road&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Road&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Contour',
@@ -155,7 +147,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: false,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Contour&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Contour&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Riverand_Waterboday',
@@ -164,7 +156,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Riverand_Waterboday&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Riverand_Waterboday&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
 
                     },
                     {
@@ -174,7 +166,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: false,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Parliamentary_Constituency&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Parliamentary_Constituency&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Assembly_Constituencies',
@@ -183,7 +175,7 @@ function AdministratorLayer({ setSearchSource }) {
                         popupEnabled: true,
                         queryable: true,
                         visible: false,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Assembly_Constituencies&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Assembly_Constituencies&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Village_Boundary',
@@ -191,53 +183,39 @@ function AdministratorLayer({ setSearchSource }) {
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Village_Boundary&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Village_Boundary&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
                         name: 'Taluka_Boundary',
                         title: 'Taluka Boundary',
-                        // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Taluka_Boundary&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Taluka_Boundary&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-
                         name: 'District_Boundary',
                         title: 'District Boundary',
-                        // popupTemplate: popupUtils.districtPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
-                        legendUrl: "https://dpcpunegis.com/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:District_Boundary&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:District_Boundary&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     }
                 ],
             });
             view.map.add(adminLayer);
+            // console.log(adminLayer)
+            // view.when(function () {
+            //     view.popup.autoOpenEnabled = false;
+            //     view.on("click", function (event) {
+            //         var info = adminLayer.getFeatureInfo();
+            //         console.log(info)
+            //         view.popup.open({
+            //             location: event.mapPoint
+            //         });
+            //     });
+            // })
         }
 
     }, [view, setSearchSource])
-    // useEffect(()=>{
-    //     if(view){
-    //         view.popupEnabled = false;
-    //         view.on("click", (event) => {
-    //             console.log(event)
-    //           // Get the coordinates of the click on the view
-    //           // around the decimals to 3 decimals
-    //           const lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
-    //           const lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
-    //         console.log("asas")
-    //           view.openPopup({
-    //             // Set the popup's title to the coordinates of the clicked location
-    //             title: "Reverse geocode: [" + lon + ", " + lat + "]",
-    //             location: event.mapPoint // Set the location of the popup to the clicked location
-    //           });
-
-    //         });
-
-
-    // }
-
-    // },[view])
 
     return (<></>);
 }

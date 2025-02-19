@@ -12,3 +12,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.esri-attribution{
+  display: none !important;
+}

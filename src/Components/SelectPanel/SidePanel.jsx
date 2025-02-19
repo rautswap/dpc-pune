@@ -4,11 +4,12 @@ import { useEffect } from 'react'
 import Expand from '@arcgis/core/widgets/Expand'
 import './select.css';
 import { SearchUtils } from './searchUtils';
-function SidePanel() {
+function SidePanel({ addMapExpand }) {
     const { view } = useContext(MapViewContext)
     const [years, setyears] = useState([]);
     const [talukas, setTalukas] = useState([]);
     const [status, setStatus] = useState([]);
+    const [selectExpand, setSelectExpand] = useState();
     useEffect(() => {
         if (view) {
             (async () => {
@@ -26,22 +27,40 @@ function SidePanel() {
                 }
             })();
         }
-    }, [view,years,talukas,status])
+    }, [view, years, talukas, status])
 
     useEffect(() => {
         if (view) {
-            let distanceMeasureExpandWidget = new Expand({
+            let selectPanelExpandWidget = new Expand({
                 view: view,
                 content: document.getElementById('selectBar'),
                 expanded: false,
-                expandIconClass: 'esri-icon-basemap',
-                expandTooltip: 'expand select',
-                collapseTooltip: 'Collapse select',
+                expandIcon: 'filter-expand',
+                collapseIcon: 'extent-filter',
+                expandTooltip: 'Expand Filter',
+                collapseTooltip: 'Collapse Filter',
                 id: "SidePanel",
             });
-            view.ui.add(distanceMeasureExpandWidget, 'top-right');
+            setSelectExpand(selectPanelExpandWidget);
+            // view.ui.add(selectPanelExpandWidget, 'top-right');
         }
     }, [view])
+    function handleTalukaChange(event) {
+        console.log(event.target.value)
+    }
+
+    useEffect(() => {
+        if (view) {
+            if (!selectExpand) return;
+            addMapExpand(selectExpand);
+
+            view.ui.add({
+                component: selectExpand,
+                position: 'top-right',
+                index: 0,
+            });
+        }
+    }, [addMapExpand, selectExpand, view]);
     return (
         <div id="selectBar" className="esri-component esri-widget" style={{ width: '500px' }}>
             <div className="card">
@@ -51,7 +70,7 @@ function SidePanel() {
                 <div className="card-body">
                     <div className="form-group">
                         <label htmlFor="yearSelect">Select Year</label>
-                        <select className="form-control" id="yearSelect">
+                        <select className="form-control optionClass" id="yearSelect">
                             {years.map((year) => (
                                 <option key={year.id} value={year.id}>
                                     {year.year}
@@ -61,8 +80,8 @@ function SidePanel() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="talukaSelect">Select Taluka</label>
-                        <select className="form-control" id="talukaSelect" >
-                            {talukas.map((taluka,index) => (
+                        <select className="form-control optionClass" id="talukaSelect" onChange={handleTalukaChange} >
+                            {talukas.map((taluka, index) => (
                                 <option key={index} value={taluka.id}>
                                     {taluka.taluka_name}
                                 </option>
@@ -70,9 +89,9 @@ function SidePanel() {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="statusSelect">Select Status</label>
-                        <select className="form-control" id="statusSelect" >
-                            {status.map((stat,index) => (
+                        <label htmlFor="statusSelect ">Select Status</label>
+                        <select className="form-control optionClass" id="statusSelect" >
+                            {status.map((stat, index) => (
                                 <option key={index} value={stat.id}>
                                     {stat.status}
                                 </option>

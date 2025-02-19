@@ -11,7 +11,8 @@ function LayerList({ addMapExpand }) {
     useEffect(() => {
         if (view) {
             setLayerList(new EsriLayerList({
-                view: view
+                view: view,
+                listMode:"show"
             }));
         }
 
@@ -23,7 +24,8 @@ function LayerList({ addMapExpand }) {
                 const expand = new Expand({
                     view: view,
                     content: layerList,
-                    expandTooltip: 'Layer List',
+                    expandTooltip: 'Expand Layer List',
+                    expandIcon:'show-multiple-layers-at-a-time',
                     collapseTooltip: 'Collapse Layer List',
                     id: widgetId,
                 });
@@ -38,7 +40,7 @@ function LayerList({ addMapExpand }) {
             addMapExpand(layerListExpand);
             view.ui.add({
                 component: layerListExpand,
-                position: 'top-trailing',
+                position: 'top-right',
                 index: 1,
             });
         }
