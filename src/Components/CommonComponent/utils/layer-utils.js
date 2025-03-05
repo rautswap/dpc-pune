@@ -1,15 +1,20 @@
+import { popupUtils } from "../popupUtils";
 import { REACT_APP_GEOSERVER_URI_WFS } from "../utils";
 
+
 export default function createFeatureLayer(
-    GeoJSONLayer,
+    WFSLayer,
     id,
+    name,
     title,
-    visibility
+    visibility,
+    cql_filter,
 ) {
-    let layer = new GeoJSONLayer({
+    let layer = new WFSLayer({
         url:
-            REACT_APP_GEOSERVER_URI_WFS + '&version=1.0.0&request=GetFeature&typeName=portal:' + id + '&outputFormat=application/json',
+            REACT_APP_GEOSERVER_URI_WFS + '&version=1.0.0&request=GetFeature&typeName=portal:' + name + '&outputFormat=application/json',
         id: id,
+        name:name,
         title: title,
         visible: visibility,
         outFields: ['*'],
@@ -17,10 +22,10 @@ export default function createFeatureLayer(
         renderer: {
             type: 'simple',
             symbol: {
-              type: 'simple-fill',
-              color: 'white',
+                type: 'simple-fill',
+                color: 'white',
             },
-          },
+        },
         //   labelsVisible: true,
         // refreshInterval: 2.0, //0.3=18 seconds, 2.0=2 minutes
         //   labelingInfo: {
@@ -44,19 +49,11 @@ export default function createFeatureLayer(
         // renderer: vesselHelper.getRotationRenderer(),
         //   popupTemplate: autocast.vesselPopupTemplate,
     });
-
-    // if (isDataRefreshRequired === true) {
-    //   layer['refreshInterval'] = 2.0; //0.3=18 seconds, 2.0=2 minutes
-    // }
-
-    // if (type) {
-    //   layer['renderer'] = vesselHelper.getCirclenRenderer();
-    // } else {
-    //   layer['renderer'] = vesselHelper.getRotationRenderer();
-    // }
-    // if (!isListmodeNotRequired) {
-    //   layer['listMode'] = 'hide';
-    // }
-
+    if (cql_filter) {
+        layer.customParameters = {
+            "cql_filter": cql_filter
+        }
+        layer['renderer']=popupUtils.zoomTalukaRenderer();
+    }
     return layer;
 }

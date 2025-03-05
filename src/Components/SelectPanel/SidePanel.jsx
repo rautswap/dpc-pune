@@ -4,6 +4,10 @@ import { useEffect } from 'react'
 import Expand from '@arcgis/core/widgets/Expand'
 import './select.css';
 import { SearchUtils } from './searchUtils';
+import createFeatureLayer from '../CommonComponent/utils/layer-utils';
+import WFSLayer from '@arcgis/core/layers/WFSLayer';
+import { LayerIds } from '../CommonComponent/utils/LayerIds';
+import { popupUtils } from '../CommonComponent/popupUtils';
 function SidePanel({ addMapExpand }) {
     const { view } = useContext(MapViewContext)
     const [years, setyears] = useState([]);
@@ -46,9 +50,35 @@ function SidePanel({ addMapExpand }) {
         }
     }, [view])
     function handleTalukaChange(event) {
-        console.log(event.target.value)
-    }
+        if (view) {
+            const isLayer = popupUtils.getLayerById(
+                view,
+                LayerIds.talukaBoundaryZoom
+            );
+            if (isLayer) {
+                view.map.remove(isLayer);
+            }
+            const layer = createFeatureLayer(WFSLayer, LayerIds.talukaBoundaryZoom, 'Taluka_Boundary', 'TalukaZoom', true, "taluka_id in('" + event.target.value + "')")
+            view.map.add(layer);
+            updateTalukaLayer();
+            console.log("sdsds", layer)
 
+        }
+    }
+    function updateTalukaLayer() {
+        const zoomLayer = popupUtils.getLayerById(
+            view,
+            LayerIds.talukaBoundaryZoom
+        );
+
+        zoomLayer.refresh();
+        if (zoomLayer) {
+            zoomLayer.when(function () {
+                view.goTo(zoomLayer.fullExtent);
+            });
+        }
+
+    }
     useEffect(() => {
         if (view) {
             if (!selectExpand) return;

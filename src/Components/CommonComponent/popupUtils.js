@@ -1,3 +1,6 @@
+import SimpleLineSymbol from "@arcgis/core/symbols/SimpleLineSymbol";
+import SimpleFillSymbol from "@arcgis/core/symbols/SimpleFillSymbol";
+import Color from "@arcgis/core/Color";
 export const popupUtils = {
     popUpTemplates: {
         title: "{id} :",
@@ -33,5 +36,38 @@ export const popupUtils = {
                 { fieldName: "category", label: "Category" },
             ]
         }]
+    },
+    getLayerById(view, layerId) {
+        const foundLayer = view.map.allLayers.find(function (layer) {
+            //console.log("Map Layers Id= " + layer.id);
+            return layer.id === layerId;
+        });
+        return foundLayer;
+    },
+    getLayerByName(view, layerId) {
+        const foundLayer = view.map.allLayers.find(function (layer) {
+            //console.log("Map Layers Id= " + layer.id);
+            return layer.title === layerId;
+        });
+        return foundLayer;
+    },
+    zoomTalukaRenderer() {
+        var lineSymbol = new SimpleLineSymbol({
+            color: new Color([255, 0, 0, 1]), // Red color with full opacity
+            width: 3, // Stroke width in pixels
+            style: "dash", // Dashed line
+            dashArray: [6, 6] // Dash pattern (6px dash, 6px gap)
+        });
+
+        // Create a SimpleFillSymbol for the fill
+        var fillSymbol = new SimpleFillSymbol({
+            color: new Color([255, 255, 0, 0.1]), // Yellow with 10% opacity
+            outline: lineSymbol // Apply the lineSymbol as the outline for the fill
+        });
+        const renderer = {
+            type: 'simple',
+            symbol: fillSymbol
+        }
+        return renderer;
     }
 }

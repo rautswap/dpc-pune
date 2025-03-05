@@ -5,6 +5,7 @@ import Graphic from "@arcgis/core/Graphic";
 import { MapViewContext } from "../MapComponent/MapContext";
 import { popupUtils } from "../CommonComponent/popupUtils";
 import { REACT_APP_GEOSERVER_URI_WMS } from "../CommonComponent/utils";
+import { LayerIds } from "../CommonComponent/utils/LayerIds";
 // import * as reactiveUtils from "@arcgis/core/core/reactiveUtils";
 
 const geoserver_wfs_ows = REACT_APP_GEOSERVER_URI_WMS;
@@ -15,6 +16,7 @@ function AdministratorLayer({ setSearchSource }) {
             const adminLayer = new WMSLayer({
                 title: 'Administrator Layers',
                 url: geoserver_wfs_ows,
+                id:LayerIds.adminLayerId,
                 featureInfoFormat: 'application/json',
                 featureInfoFormats: 'application/json',
                 featureInfoUrl: geoserver_wfs_ows + "?",
@@ -33,171 +35,171 @@ function AdministratorLayer({ setSearchSource }) {
                 },
                 sublayers: [
                     {
-                        name: 'transportation',
+                        name: LayerIds.transportation,
                         title: 'Transportation',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:transportation&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450",
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.transportation+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450",
                     },
                     {
-                        name: 'school_location',
+                        name: LayerIds.schoolLocation,
                         title: 'School Location',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:school_location&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.schoolLocation+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'govt_admin_depart',
+                        name: LayerIds.govtAdminDepart,
                         title: 'Admin Department',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:govt_admin_depart&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.govtAdminDepart+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Fort',
+                        name: LayerIds.fort,
                         title: 'Fort',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Fort&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.fort+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Settlement_Point',
+                        name: LayerIds.settlementPoint,
                         title: 'Settlement Location',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Settlement_Point&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.settlementPoint+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Monument_Location',
+                        name: LayerIds.monumentLocation,
                         title: 'Monument Location',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Monument_Location&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.monumentLocation+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'police_station',
+                        name: LayerIds.policestation,
                         title: 'Police Station',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:police_station&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.policestation+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Veterinary_Hospital',
+                        name:LayerIds.veterinaryHospital,
                         title: 'Veterinary Hospital',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Veterinary_Hospital&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.veterinaryHospital+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Hospital_Location',
+                        name: LayerIds.hospitalLocation,
                         title: 'Hospital Location',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Hospital_Location&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.hospitalLocation+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'road_black_spot',
+                        name: LayerIds.roadBlackSpot,
                         title: 'Road Black Spot',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:road_black_spot&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.roadBlackSpot+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Rail_Track',
+                        name: LayerIds.railTrack,
                         title: 'Rail Track',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Rail_Track&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.railTrack+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Road',
+                        name: LayerIds.road,
                         title: 'Road',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: false,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Road&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.road+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Contour',
+                        name: LayerIds.contour,
                         title: 'Contour',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: false,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Contour&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.contour+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Riverand_Waterboday',
+                        name: LayerIds.riverandWaterboday,
                         title: 'River / Waterboday',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Riverand_Waterboday&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.riverandWaterboday+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
 
                     },
                     {
-                        name: 'Parliamentary_Constituency',
+                        name: LayerIds.parliamentaryConstituency,
                         title: 'Parliamentary Constituency',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: false,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Parliamentary_Constituency&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.parliamentaryConstituency+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Assembly_Constituencies',
+                        name: LayerIds.assemblyConstituencies,
                         title: 'Assembly Constituencies',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
                         visible: false,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Assembly_Constituencies&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.assemblyConstituencies+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Village_Boundary',
+                        name: LayerIds.villageBoundary,
                         title: 'Village Boundary',
                         // popupTemplate: popupUtils.talukaPoupTemplates,
                         popupEnabled: true,
                         queryable: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Village_Boundary&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.villageBoundary+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'Taluka_Boundary',
+                        name: LayerIds.talukaBoundary,
                         title: 'Taluka Boundary',
                         popupEnabled: true,
                         queryable: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:Taluka_Boundary&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.talukaBoundary+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     },
                     {
-                        name: 'District_Boundary',
+                        name: LayerIds.districtBoundary,
                         title: 'District Boundary',
                         popupEnabled: true,
                         queryable: true,
-                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:District_Boundary&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
+                        legendUrl: geoserver_wfs_ows + "?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=10&HEIGHT=10&LAYER=portal:"+LayerIds.districtBoundary+"&legend_options=fontName:Times%20New%20Roman;fontAntiAliasing:true;fontColor:0x000033;fontSize:5;bgColor:0xFFFFEE;dpi:450"
                     }
                 ],
             });

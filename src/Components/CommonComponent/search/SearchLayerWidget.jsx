@@ -3,7 +3,7 @@ import Search from "@arcgis/core/widgets/Search";
 import Expand from '@arcgis/core/widgets/Expand';
 import SearchLayer from './searchSource';
 import { MapViewContext } from '../../MapComponent/MapContext';
-import GeoJSONLayer from "@arcgis/core/layers/GeoJSONLayer";
+import WFSLayer from "@arcgis/core/layers/WFSLayer";
 import SimpleMarkerSymbol from "@arcgis/core/symbols/SimpleMarkerSymbol";
 import { popupUtils } from '../popupUtils';
 import * as reactiveUtils from "@arcgis/core/core/reactiveUtils";
@@ -15,7 +15,7 @@ function SearchLayerWidget({ addMapExpand }) {
   useEffect(() => {
 
     if (view) {
-      const customSources = SearchLayer({ GeoJSONLayer });
+      const customSources = SearchLayer({ WFSLayer });
       setSearchWidget(new Search({
         view: view,
         sources: customSources,

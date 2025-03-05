@@ -8,6 +8,7 @@ import LayerLegend from '../CommonComponent/layerLegend/LayerLegend'
 import LayerList from '../CommonComponent/layerList/LayerList'
 import Measurement from '../CommonComponent/measurement/Measurement'
 import SidePanel from '../SelectPanel/SidePanel'
+import BufferTools from '../CommonComponent/buffer/bufferTool'
 export default function MapComponent() {
     const [mapExpands, setMapExpands] = useState([]);
     useEffect(() => {
@@ -44,6 +45,7 @@ export default function MapComponent() {
             <LayerLegend addMapExpand={addMapExpand} />
             <Measurement addMapExpand={addMapExpand}/>
             <SidePanel addMapExpand={addMapExpand}/>
+            <BufferTools addMapExpand={addMapExpand}/>
         </MapViewContextPrvider>
     )
 }

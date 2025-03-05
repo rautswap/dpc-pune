@@ -1,8 +1,9 @@
 import createFeatureLayer from "../utils/layer-utils";
-function SearchLayer({ GeoJSONLayer }) {
+import { LayerIds } from "../utils/LayerIds";
+function SearchLayer({ WFSLayer }) {
   return [
     {
-      layer: createFeatureLayer(GeoJSONLayer, 'District_Boundary', 'District Boundary', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.DistrictBoundarySearch,'District_Boundary', 'District Boundary', false),
       searchFields: ['district', 'division'],
       suggestionTemplate: 'Layer:District Boundary >> Division:{division} | District:{district}',
       exactMatch: false,
@@ -14,7 +15,7 @@ function SearchLayer({ GeoJSONLayer }) {
       zoomScale: 500000,
     },
     {
-      layer: createFeatureLayer(GeoJSONLayer, 'Taluka_Boundary', 'Taluka Boundary', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.TalukaBoundarySearch,'Taluka_Boundary' ,'Taluka Boundary', false),
       searchFields: ['dtname11', 'thname11'],
       suggestionTemplate: 'Layer:Taluka Boundary >> District:{dtname11} | Taluka:{thname11}',
       exactMatch: false,
@@ -26,7 +27,7 @@ function SearchLayer({ GeoJSONLayer }) {
       zoomScale: 500000,
     },
     {
-      layer: createFeatureLayer(GeoJSONLayer, 'Village_Boundary', 'Village Boundary', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.VillageBoundarySearch,'Village_Boundary', 'Village Boundary', false),
       searchFields: ['d_name', 't_name', 'name'],
       suggestionTemplate: 'Layer:Village Boundary >> District:{d_name} | Taluka:{t_name} | Village:{name}',
       exactMatch: false,
@@ -38,7 +39,7 @@ function SearchLayer({ GeoJSONLayer }) {
       zoomScale: 500000,
     },
     {
-      layer: createFeatureLayer(GeoJSONLayer, 'Assembly_Constituencies', 'Assembly Constituency', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.AssemblyConstituenciesSearch,'Assembly_Constituencies', 'Assembly Constituency', false),
       searchFields: ['dist_name', 'name'],
       suggestionTemplate: 'Layer:Assembly Constituency >> District:{dist_name} | Name:{name}',
       exactMatch: false,
@@ -50,7 +51,7 @@ function SearchLayer({ GeoJSONLayer }) {
       zoomScale: 500000,
     },
     {
-      layer: createFeatureLayer(GeoJSONLayer, 'Parliamentary_Constituency', 'Parliamentary Constituency', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.ParliamentaryConstituencySearch,'Parliamentary_Constituency', 'Parliamentary Constituency', false),
       searchFields: ['dist_name', 'name', 'pc_name'],
       suggestionTemplate: 'Layer:Parliamentary Constituency >> District:{dist_name} | Name:{name} | PC Name:{pc_name}',
       exactMatch: false,
@@ -62,7 +63,7 @@ function SearchLayer({ GeoJSONLayer }) {
       zoomScale: 500000,
     },
     {
-      layer: createFeatureLayer(GeoJSONLayer, 'Riverand_Waterboday', 'River and Waterboday', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.RiverandWaterbodaySearch,'Riverand_Waterboday', 'River and Waterboday', false),
       searchFields: ['discr', 'name'],
       suggestionTemplate: 'Layer:River and Waterboday >> Discription:{discr} | Name:{name}',
       exactMatch: false,
@@ -74,7 +75,7 @@ function SearchLayer({ GeoJSONLayer }) {
       zoomScale: 500000,
     },
     {
-      layer: createFeatureLayer(GeoJSONLayer, 'Hospital_Location', 'Hospital Locations', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.HospitalLocationSearch,'Hospital_Location', 'Hospital Locations', false),
       searchFields: ['dist_namename', 'taluka'],
       suggestionTemplate: 'Layer:Hospital Location >> Name:{name} | Taluka:{taluka}',
       exactMatch: false,
@@ -86,7 +87,7 @@ function SearchLayer({ GeoJSONLayer }) {
       zoomScale: 500000,
     },
     {
-      layer: createFeatureLayer(GeoJSONLayer, 'Veterinary_Hospital', 'Veterinary Hospitals', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.VeterinaryHospitalSearch,'Veterinary_Hospital', 'Veterinary Hospitals', false),
       searchFields: ['village', 'veterinary'],
       suggestionTemplate: 'Layer: Veterinary Hospital >> Village:{village} | Veterinary:{veterinary}',
       exactMatch: false,
@@ -97,7 +98,7 @@ function SearchLayer({ GeoJSONLayer }) {
       localSearchDisabled: false,
       zoomScale: 500000,
     }, {
-      layer: createFeatureLayer(GeoJSONLayer, 'police_station', 'Police stations', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.PoliceStationSearch,'police_station', 'Police stations', false),
       searchFields: ['name', 'taluka'],
       suggestionTemplate: 'Layer: Police station >> Name:{dist_name} | Taluka:{taluka}',
       exactMatch: false,
@@ -108,7 +109,7 @@ function SearchLayer({ GeoJSONLayer }) {
       localSearchDisabled: false,
       zoomScale: 500000,
     }, {
-      layer: createFeatureLayer(GeoJSONLayer, 'Monument_Location', 'Monument Locations', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.MonumentLocationSearch,'Monument_Location', 'Monument Locations', false),
       searchFields: ['place', 'name', 'taluka', 'district'],
       suggestionTemplate: 'Layer: Monument Location >>  Name:{name} | Place:{place} | District:{dist_name} | Taluka:{taluka}',
       exactMatch: false,
@@ -119,7 +120,7 @@ function SearchLayer({ GeoJSONLayer }) {
       localSearchDisabled: false,
       zoomScale: 500000,
     }, {
-      layer: createFeatureLayer(GeoJSONLayer, 'Fort', 'Forts', false),
+      layer: createFeatureLayer(WFSLayer, 'Fort', 'Forts', false),
       searchFields: ['name'],
       suggestionTemplate: 'Layer:Fort >> Name:{name}',
       exactMatch: false,
@@ -130,7 +131,7 @@ function SearchLayer({ GeoJSONLayer }) {
       localSearchDisabled: false,
       zoomScale: 500000,
     }, {
-      layer: createFeatureLayer(GeoJSONLayer, 'govt_admin_depart', 'Admin Departments', false),
+      layer: createFeatureLayer(WFSLayer,LayerIds.GovtadminDepartSearch, 'govt_admin_depart', 'Admin Departments', false),
       searchFields: ['taluka', 'name'],
       suggestionTemplate: 'Layer: Admin Department >> Taluka:{taluka} | Name:{name}',
       exactMatch: false,
@@ -142,7 +143,7 @@ function SearchLayer({ GeoJSONLayer }) {
       zoomScale: 500000,
     },
     {
-      layer: createFeatureLayer(GeoJSONLayer, 'school_location', 'School Locations', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.SchoolLocationSearch,'school_location', 'School Locations', false),
       searchFields: ['districtna', 'block_name', 'schoolname'],
       suggestionTemplate: 'Layer: School Location >> District:{districtna} | Block Name:{block_name} | School Name:{schoolname}',
       exactMatch: false,
@@ -154,7 +155,7 @@ function SearchLayer({ GeoJSONLayer }) {
       zoomScale: 500000,
     },
     {
-      layer: createFeatureLayer(GeoJSONLayer, 'transportation', 'Transportations', false),
+      layer: createFeatureLayer(WFSLayer, LayerIds.TransportationSearch,'transportation', 'Transportations', false),
       searchFields: ['taluka', 'name'],
       suggestionTemplate: 'Layer: Transportation >> Taluka:{taluka} | Name:{name}',
       exactMatch: false,
